@@ -1,18 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:padding="12dp">
 
     <TextView
+        android:id="@+id/tvNameLabel"
+        android:layout_width="64dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:labelFor="@+id/etName"
+        android:text="@string/name_label" />
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignBottom="@+id/tvNameLabel"
+        android:layout_marginStart="4dp"
+        android:layout_toEndOf="@+id/tvNameLabel"
+        android:autofillHints="Masukkan nama"
+        android:inputType="text"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <TextView
+        android:id="@+id/tvItemLabel"
+        android:layout_width="64dp"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/tvNameLabel"
+        android:text="@string/item_label"
+        android:labelFor="@+id/etItem"/>
+
+    <EditText
+        android:id="@+id/etItem"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignTop="@+id/tvItemLabel"
+        android:layout_marginStart="4dp"
+        android:layout_toEndOf="@+id/tvItemLabel"
+        android:autofillHints="Masukkan barang"
+        android:inputType="text"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <TextView
+        android:id="@+id/tvNumberOfItems"
+        android:layout_width="64dp"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/tvItemLabel"
+        android:text="@string/number_of_items_label"
+        android:labelFor="@+id/etNumberOfItems"/>
+
+    <EditText
+        android:id="@+id/etNumberOfItems"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignTop="@+id/tvNumberOfItems"
+        android:layout_marginStart="4dp"
+        android:layout_toEndOf="@+id/tvNumberOfItems"
+        android:autofillHints="Masukkan jumlah barang"
+        android:inputType="number"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="64dp"
+        android:layout_height="48dp"
+        android:layout_below="@+id/tvNumberOfItems"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:labelFor="@+id/etPrice"
+        android:text="@string/price_label" />
+
+    <EditText
+        android:id="@+id/etPrice"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignTop="@+id/tvPrice"
+        android:layout_marginStart="4dp"
+        android:layout_toEndOf="@+id/tvPrice"
+        android:autofillHints="Masukkan harga"
+        android:inputType="text"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <TextView
+        android:id="@+id/tvMoneyPayed"
+        android:layout_width="64dp"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/tvPrice"
+        android:text="@string/money_payed_label"
+        android:labelFor="@+id/etMoneyPayed"/>
+
+    <EditText
+        android:id="@+id/etMoneyPayed"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignTop="@+id/tvMoneyPayed"
+        android:layout_marginStart="4dp"
+        android:layout_toEndOf="@+id/tvMoneyPayed"
+        android:autofillHints="Masukkan Uang yang dibayar"
+        android:inputType="text"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <Button
+        android:id="@+id/btnProcess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvMoneyPayed"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_button"
+        android:text="@string/btn_process_text"
+        android:textColor="@android:color/white" />
+
+    <View
+        android:id="@+id/vDivierLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/btnProcess"
+        android:background="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/tvNameCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/vDivierLine"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/tvItemCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/tvNameCart"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvNumberOfItemsCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/tvItemCart"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvPriceCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/tvNumberOfItemsCart"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvMoneyPayedCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/tvPriceCart"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvTotalCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/tvMoneyPayedCart"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvChangeMoneyCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/tvTotalCart"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvBonus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/tvChangeMoneyCart"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvNotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/tvBonus"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvNotes"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_button"
+        android:layout_alignStart="@id/btnProcess"
+        android:text="@string/btn_delete_text"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/btnDelete"
+        android:layout_alignEnd="@id/btnProcess"
+        android:background="@drawable/bg_button"
+        android:text="@string/btn_close_text"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>

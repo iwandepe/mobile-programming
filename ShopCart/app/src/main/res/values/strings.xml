@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">ShopCart</string>
+    <string name="order_label">Pesanan</string>
+    <string name="name_label">Nama</string>
+    <string name="item_label">Barang</string>
+    <string name="number_of_items_label">Jumlah</string>
+    <string name="price_label">Harga</string>
+    <string name="money_payed_label">Uang bayar</string>
+    <string name="btn_process_text">Proses</string>
+    <string name="btn_delete_text">Hapus</string>
+    <string name="btn_close_text">Keluar</string>
 </resources>
