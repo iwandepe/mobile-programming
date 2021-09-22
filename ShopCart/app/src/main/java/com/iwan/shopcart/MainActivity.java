@@ -5,41 +5,52 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText etName, etItem, etNumberOfItems, etPrice, etMoneyPayed;
-    TextView tvName, tvItem, tvNumberOfItems, tvPrice, tvMoneyPayed,
-            tvTotal, tvChangeMoney, tvBonus, tvNotes;
-    Button btnProcess, btnDelete, btnClose;
+    TextView tvMoneyPayed, tvTotal, tvChangeMoney, tvBonus, tvNotes;
+    Button btnProcess, btnDelete, btnClose, btnPay;
 
     String name, item, numberOfItemsStr, priceStr, moneyPayedStr;
-    double numberOfItems, price, moneyPayed, total, changeMoney;
+    double numberOfItems, price, moneyPayed, changeMoney, total = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setTitle("Aplikasi Penjualan");
+//        getSupportActionBar().setTitle("Aplikasi Penjualan");
+
+        // Construct the data source
+        ArrayList<Item> arrayOfUsers = new ArrayList<>();
+        // Create the adapter to convert the array to views
+        CustomItemAdapter adapter = new CustomItemAdapter(this, arrayOfUsers);
+        // Attach the adapter to a ListView
+        ListView listView = (ListView) findViewById(R.id.lvItem);
+        listView.setAdapter(adapter);
+
+        setListViewHeightBasedOnChildren(listView);
 
         //EditText
         etName = findViewById(R.id.etName);
         etItem = findViewById(R.id.etItem);
         etNumberOfItems = findViewById(R.id.etNumberOfItems);
         etPrice = findViewById(R.id.etPrice);
-        etMoneyPayed = findViewById(R.id.etNumberOfItems);
+        etMoneyPayed = findViewById(R.id.etMoneyPayed);
 
         //TextView
-        tvName = findViewById(R.id.tvNameCart);
-        tvItem = findViewById(R.id.tvItemCart);
-        tvNumberOfItems = findViewById(R.id.tvNumberOfItemsCart);
-        tvPrice = findViewById(R.id.tvPriceCart);
-        tvMoneyPayed = findViewById(R.id.tvMoneyPayedCart);
-        tvTotal = findViewById(R.id.tvTotalCart);
-        tvChangeMoney = findViewById(R.id.tvChangeMoneyCart);
+        tvMoneyPayed = findViewById(R.id.tvMoneyPayed);
+        tvTotal = findViewById(R.id.tvTotal);
+        tvChangeMoney = findViewById(R.id.tvChangeMoney);
         tvBonus = findViewById(R.id.tvBonus);
         tvNotes = findViewById(R.id.tvNotes);
 
@@ -47,6 +58,14 @@ public class MainActivity extends AppCompatActivity {
         btnProcess = findViewById(R.id.btnProcess);
         btnDelete = findViewById(R.id.btnDelete);
         btnClose = findViewById(R.id.btnClose);
+        btnPay = findViewById(R.id.btnPay);
+
+        // Set data to default
+        tvMoneyPayed.setText(R.string.money_payed_default_text);
+        tvChangeMoney.setText(R.string.default_text);
+        tvNotes.setText(R.string.default_text);
+        tvBonus.setText(R.string.default_text);
+        tvTotal.setText(R.string.total_default_text);
 
         //Proses
         btnProcess.setOnClickListener(new View.OnClickListener() {
@@ -57,28 +76,41 @@ public class MainActivity extends AppCompatActivity {
                 item = etItem.getText().toString().trim();
                 numberOfItemsStr = etNumberOfItems.getText().toString().trim();
                 priceStr = etPrice.getText().toString().trim();
-                moneyPayedStr = etMoneyPayed.getText().toString().trim();
 
                 numberOfItems = Double.parseDouble(numberOfItemsStr);
                 price = Double.parseDouble(priceStr);
+                double totalPrice = (numberOfItems * price);
+
+                Item newItem = new Item(name, item, numberOfItemsStr, priceStr, String.valueOf(totalPrice));
+                adapter.add(newItem);
+
+                setListViewHeightBasedOnChildren(listView);
+
+                total += totalPrice;
+
+                tvTotal.setText("Total Belanja = " + total);
+            }
+        });
+
+        btnPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                moneyPayedStr = etMoneyPayed.getText().toString().trim();
+
                 moneyPayed = Double.parseDouble(moneyPayedStr);
-                total = (numberOfItems * price);
 
-                tvName.setText("Nama Pembeli : " + name);
-                tvItem.setText("Nama Barang : " + item);
-                tvNumberOfItems.setText("Jumlah Barang : " + numberOfItemsStr);
-                tvPrice.setText("Harga Barang : " + priceStr);
-                tvMoneyPayed.setText("Uang bayar : " + moneyPayedStr);
+                tvMoneyPayed.setText( "Uang bayar : " + moneyPayedStr);
 
-                tvTotal.setText("Total Belanja " + total);
+                tvTotal.setText("Total Belanja = " + total);
                 if (total >= 200000) {
-                    tvBonus.setText("Bonus : HardDisk 1TB");
+                    tvBonus.setText(R.string.bonus_1_text);
                 } else if (total >= 50000) {
-                    tvBonus.setText("Bonus : Keyboard Gaming");
+                    tvBonus.setText(R.string.bonus_2_text);
                 } else if (total >= 40000) {
-                    tvBonus.setText("Bonus : Mouse Gaming");
+                    tvBonus.setText(R.string.bonus_3_text);
                 } else {
-                    tvBonus.setText("Bonus : Tidak ada bonus!");
+                    tvBonus.setText(R.string.no_bonus_text);
                 }
 
                 changeMoney = (moneyPayed - total);
@@ -86,25 +118,20 @@ public class MainActivity extends AppCompatActivity {
                     tvNotes.setText("Keterangan : Uang bayar kurang Rp. " + (-changeMoney));
                     tvChangeMoney.setText("Uang Kembalian : Rp. 0");
                 } else {
-                    tvNotes.setText("Keterangan : Tunggu kembalian");
+                    tvNotes.setText(R.string.change_money_notes);
                     tvChangeMoney.setText("Uang Kembalian : Rp. " + changeMoney);
                 }
-
             }
         });
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tvName.setText("");
-                tvItem.setText("");
-                tvNumberOfItems.setText("");
-                tvPrice.setText("");
-                tvMoneyPayed.setText("");
-                tvChangeMoney.setText("");
-                tvNotes.setText("");
-                tvBonus.setText("");
-                tvTotal.setText("");
+                tvMoneyPayed.setText(R.string.money_payed_default_text);
+                tvChangeMoney.setText(R.string.default_text);
+                tvNotes.setText(R.string.default_text);
+                tvBonus.setText(R.string.default_text);
+                tvTotal.setText(R.string.total_default_text);
 
                 Toast.makeText(getApplicationContext(), "Data sudah dihapus", Toast.LENGTH_SHORT).show();
             }
@@ -117,5 +144,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
     }
 }

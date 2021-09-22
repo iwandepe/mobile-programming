@@ -6,7 +6,17 @@
     <string name="number_of_items_label">Jumlah</string>
     <string name="price_label">Harga</string>
     <string name="money_payed_label">Uang bayar</string>
-    <string name="btn_process_text">Proses</string>
+    <string name="btn_process_text">Tambahkan ke keranjang</string>
+    <string name="cart_label">Keranjang Belanja</string>
     <string name="btn_delete_text">Hapus</string>
     <string name="btn_close_text">Keluar</string>
+    <string name="btn_pay_text">Bayarkan</string>
+    <string name="money_payed_default_text">Belum membayar</string>
+    <string name="default_text">-</string>
+    <string name="total_default_text">Belum ada barang di keranjang</string>
+    <string name="bonus_1_text">Bonus : HardDisk 1TB</string>
+    <string name="bonus_2_text">Bonus : Keyboard Gaming</string>
+    <string name="bonus_3_text">Bonus : Mouse Gaming</string>
+    <string name="no_bonus_text">Bonus : Tidak ada bonus</string>
+    <string name="change_money_notes">Keterangan : Tunggu kembalian</string>
 </resources>

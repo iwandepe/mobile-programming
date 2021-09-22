@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:padding="12dp">
+
+
+    <TextView
+        android:id="@+id/tvNameCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"/>
+
+    <TextView
+        android:id="@+id/tvItemCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvNameCart"/>
+
+    <TextView
+        android:id="@+id/tvNumberOfItemsCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvItemCart"/>
+
+    <TextView
+        android:id="@+id/tvPriceCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvNumberOfItemsCart"/>
+
+    <TextView
+        android:id="@+id/tvTotalCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvPriceCart"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+</RelativeLayout>
