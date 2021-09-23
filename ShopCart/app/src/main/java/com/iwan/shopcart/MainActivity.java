@@ -141,6 +141,8 @@ public class MainActivity extends AppCompatActivity {
             tvNotes.setText(R.string.default_text);
             tvBonus.setText(R.string.default_text);
 
+            total = 0;
+
             adapter.clear();
             setListViewHeightBasedOnChildren(listView);
 
