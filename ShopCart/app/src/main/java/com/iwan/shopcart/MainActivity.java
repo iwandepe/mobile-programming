@@ -2,7 +2,6 @@ package com.iwan.shopcart;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,14 +27,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        getSupportActionBar().setTitle("Aplikasi Penjualan");
 
         // Construct the data source
         ArrayList<Item> arrayOfUsers = new ArrayList<>();
         // Create the adapter to convert the array to views
         CustomItemAdapter adapter = new CustomItemAdapter(this, arrayOfUsers);
         // Attach the adapter to a ListView
-        ListView listView = (ListView) findViewById(R.id.lvItem);
+        ListView listView =  findViewById(R.id.lvItem);
         listView.setAdapter(adapter);
 
         setListViewHeightBasedOnChildren(listView);
@@ -68,10 +66,8 @@ public class MainActivity extends AppCompatActivity {
         tvTotal.setText(R.string.total_default_text);
 
         //Proses
-        btnProcess.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View view) {
+        btnProcess.setOnClickListener(v -> {
+            try {
                 name = etName.getText().toString().trim();
                 item = etItem.getText().toString().trim();
                 numberOfItemsStr = etNumberOfItems.getText().toString().trim();
@@ -89,60 +85,69 @@ public class MainActivity extends AppCompatActivity {
                 total += totalPrice;
 
                 tvTotal.setText("Total Belanja = " + total);
+
+                etName.setText("");
+                etItem.setText("");
+                etPrice.setText("");
+                etNumberOfItems.setText("");
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), "Isi data dengan lengkap !!!", Toast.LENGTH_SHORT).show();
             }
         });
 
-        btnPay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnPay.setOnClickListener(v -> {
+            try {
+                if (adapter.getCount() > 0) {
+                    moneyPayedStr = etMoneyPayed.getText().toString().trim();
 
-                moneyPayedStr = etMoneyPayed.getText().toString().trim();
+                    moneyPayed = Double.parseDouble(moneyPayedStr);
 
-                moneyPayed = Double.parseDouble(moneyPayedStr);
+                    tvMoneyPayed.setText( "Uang bayar : " + moneyPayedStr);
 
-                tvMoneyPayed.setText( "Uang bayar : " + moneyPayedStr);
+                    tvTotal.setText("Total Belanja = " + total);
+                    if (total >= 200000) {
+                        tvBonus.setText(R.string.bonus_1_text);
+                    } else if (total >= 50000) {
+                        tvBonus.setText(R.string.bonus_2_text);
+                    } else if (total >= 40000) {
+                        tvBonus.setText(R.string.bonus_3_text);
+                    } else {
+                        tvBonus.setText(R.string.no_bonus_text);
+                    }
 
-                tvTotal.setText("Total Belanja = " + total);
-                if (total >= 200000) {
-                    tvBonus.setText(R.string.bonus_1_text);
-                } else if (total >= 50000) {
-                    tvBonus.setText(R.string.bonus_2_text);
-                } else if (total >= 40000) {
-                    tvBonus.setText(R.string.bonus_3_text);
-                } else {
-                    tvBonus.setText(R.string.no_bonus_text);
+                    changeMoney = (moneyPayed - total);
+                    if (moneyPayed < total) {
+                        tvNotes.setText("Keterangan : Uang bayar kurang Rp. " + (-changeMoney));
+                        tvChangeMoney.setText("Uang Kembalian : Rp. 0");
+                    } else {
+                        tvNotes.setText(R.string.change_money_notes);
+                        tvChangeMoney.setText("Uang Kembalian : Rp. " + changeMoney);
+                    }
+                    etMoneyPayed.setText("");
                 }
-
-                changeMoney = (moneyPayed - total);
-                if (moneyPayed < total) {
-                    tvNotes.setText("Keterangan : Uang bayar kurang Rp. " + (-changeMoney));
-                    tvChangeMoney.setText("Uang Kembalian : Rp. 0");
-                } else {
-                    tvNotes.setText(R.string.change_money_notes);
-                    tvChangeMoney.setText("Uang Kembalian : Rp. " + changeMoney);
+                else {
+                    Toast.makeText(getApplicationContext(), "Belum ada barang yang bisa dibayar !!!", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
-
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tvMoneyPayed.setText(R.string.money_payed_default_text);
-                tvChangeMoney.setText(R.string.default_text);
-                tvNotes.setText(R.string.default_text);
-                tvBonus.setText(R.string.default_text);
-                tvTotal.setText(R.string.total_default_text);
-
-                Toast.makeText(getApplicationContext(), "Data sudah dihapus", Toast.LENGTH_SHORT).show();
+            catch (Exception e) {
+                Toast.makeText(getApplicationContext(), "Masukkan nominal bayar !!!", Toast.LENGTH_SHORT).show();
             }
         });
 
-        btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                moveTaskToBack(true);
-            }
+        btnDelete.setOnClickListener(v -> {
+            tvTotal.setText(R.string.total_default_text);
+            tvMoneyPayed.setText(R.string.money_payed_default_text);
+            tvChangeMoney.setText(R.string.default_text);
+            tvNotes.setText(R.string.default_text);
+            tvBonus.setText(R.string.default_text);
+
+            adapter.clear();
+            setListViewHeightBasedOnChildren(listView);
+
+            Toast.makeText(getApplicationContext(), "Data sudah dihapus", Toast.LENGTH_SHORT).show();
         });
+
+        btnClose.setOnClickListener(v -> moveTaskToBack(true));
 
     }
 
