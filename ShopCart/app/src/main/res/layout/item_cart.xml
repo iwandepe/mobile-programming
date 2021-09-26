@@ -3,34 +3,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".MainActivity"
     android:padding="12dp">
-
 
     <TextView
         android:id="@+id/tvNameCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:text="Nama: Iwan Dwi Prakoso"
         android:layout_alignParentTop="true"/>
 
     <TextView
         android:id="@+id/tvItemCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvNameCart"/>
+        android:layout_below="@id/tvNameCart"
+        android:text="Barang: Keyboard" />
 
     <TextView
         android:id="@+id/tvNumberOfItemsCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Jumlah: 5"
         android:layout_below="@id/tvItemCart"/>
 
     <TextView
         android:id="@+id/tvPriceCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Harga: Rp. 50.000"
         android:layout_below="@id/tvNumberOfItemsCart"/>
 
     <TextView
@@ -39,6 +42,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvPriceCart"
         android:textColor="@android:color/black"
+        android:text="Total: Rp. 250.000"
         android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnDeleteItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/btn_delete_item_text"
+        android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>

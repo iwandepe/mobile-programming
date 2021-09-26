@@ -1,45 +1,75 @@
 package com.iwan.shopcart;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class CustomItemAdapter extends ArrayAdapter<Item> {
-    public CustomItemAdapter(Context context, ArrayList<Item> items) {
-        super(context, 0, items);
+public class CustomItemAdapter extends RecyclerView.Adapter<CustomItemAdapter.ViewHolder> {
+    private final ArrayList<Cart> localDataSet;
+    public AdapterListener listener;
+
+    public CustomItemAdapter(ArrayList<Cart> dataSet, AdapterListener listener) {
+        this.localDataSet = dataSet;
+        this.listener = listener;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        // Create a new view, which defines the UI of the list item
+        View view = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.item_cart, viewGroup, false);
 
-        // Check if an existing view is being reused, otherwise inflate the view
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_cart, parent, false);
+        return new ViewHolder(view, listener);
+    }
+
+    // Replace the contents of a view (invoked by the layout manager)
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+
+        viewHolder.tvNameCart.setText(localDataSet.get(position).id + " Nama Pembeli : " + localDataSet.get(position).name);
+        viewHolder.tvItemCart.setText("Barang : " + localDataSet.get(position).item);
+        viewHolder.tvNumberOfItemsCart.setText("Jumlah : " + localDataSet.get(position).numberOfItems);
+        viewHolder.tvPriceCart.setText("Harga : " + localDataSet.get(position).price);
+        viewHolder.tvTotalCart.setText("Total Harga : " + localDataSet.get(position).numberOfItems * localDataSet.get(position).price);
+    }
+
+    // Return the size of your dataset (invoked by the layout manager)
+    @Override
+    public int getItemCount() {
+        return localDataSet.size();
+    }
+
+    public Cart getItem(int position) {
+        return localDataSet.get(position);
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public final TextView tvNameCart;
+        public final TextView tvItemCart;
+        public final TextView tvNumberOfItemsCart;
+        public final TextView tvPriceCart;
+        public final TextView tvTotalCart;
+        public final Button btnDeleteItem;
+
+        public ViewHolder(View view, AdapterListener listener) {
+            super(view);
+
+            tvNameCart = view.findViewById(R.id.tvNameCart);
+            tvItemCart = view.findViewById(R.id.tvItemCart);
+            tvNumberOfItemsCart = view.findViewById(R.id.tvNumberOfItemsCart);
+            tvPriceCart = view.findViewById(R.id.tvPriceCart);
+            tvTotalCart = view.findViewById(R.id.tvTotalCart);
+            btnDeleteItem = view.findViewById(R.id.btnDeleteItem);
+
+            btnDeleteItem.setOnClickListener(v -> {
+                listener.onDeleteClicked(view, getAdapterPosition());
+            });
         }
-
-        // Get the data item for this position
-        Item item = getItem(position);
-
-        // Lookup view for data population
-        TextView tvName = convertView.findViewById(R.id.tvNameCart);
-        TextView tvItem = convertView.findViewById(R.id.tvItemCart);
-        TextView tvNumberOfItems = convertView.findViewById(R.id.tvNumberOfItemsCart);
-        TextView tvPrice = convertView.findViewById(R.id.tvPriceCart);
-        TextView tvTotal = convertView.findViewById(R.id.tvTotalCart);
-
-        // Populate the data into the template view using the data object
-        tvName.setText("Nama Pembeli : " + item.name);
-        tvItem.setText("Nama Barang : " + item.item);
-        tvNumberOfItems.setText("Jumlah Barang : " + item.numberOfItems);
-        tvPrice.setText("Harga Barang : " + item.price);
-        tvTotal.setText("Total Harga Barang : " + item.total);
-
-        // Return the completed view to render on screen
-        return convertView;
     }
 }

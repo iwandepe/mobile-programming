@@ -19,4 +19,5 @@
     <string name="bonus_3_text">Bonus : Mouse Gaming</string>
     <string name="no_bonus_text">Bonus : Tidak ada bonus</string>
     <string name="change_money_notes">Keterangan : Tunggu kembalian</string>
+    <string name="btn_delete_item_text">Hapus</string>
 </resources>

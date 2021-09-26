@@ -128,20 +128,20 @@
             android:textColor="@color/black"
             android:text="@string/cart_label"/>
 
-        <ListView
-            android:id="@+id/lvItem"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCart"
             android:layout_width="match_parent"
-            android:isScrollContainer="false"
-            android:layout_height="500dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvCartLabel"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="8dp"
-            android:layout_below="@id/tvCartLabel" />
+            android:isScrollContainer="false" />
 
         <TextView
             android:id="@+id/tvTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/lvItem"
+            android:layout_below="@id/rvCart"
             android:textColor="@android:color/black"
             android:textStyle="bold" />
 
@@ -156,23 +156,23 @@
 
         <EditText
             android:id="@+id/etMoneyPayed"
-            android:layout_width="180dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_alignTop="@+id/tvMoneyPayedLabel"
             android:layout_marginStart="4dp"
             android:layout_toEndOf="@+id/tvMoneyPayedLabel"
-            android:layout_toStartOf="@id/btnPay"
             android:autofillHints="Masukkan Uang yang dibayar"
             android:inputType="text"
             tools:ignore="DuplicateSpeakableTextCheck" />
 
         <Button
             android:id="@+id/btnPay"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tvMoneyPayedLabel"
             android:background="@drawable/bg_button"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@id/tvTotal"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
             android:text="@string/btn_pay_text"
             android:textColor="@android:color/white" />
 
@@ -180,7 +180,7 @@
             android:id="@+id/tvMoneyPayed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvMoneyPayedLabel"
+            android:layout_below="@id/btnPay"
             android:gravity="center_vertical"
             android:labelFor="@+id/etMoneyPayed"
             android:text="@string/money_payed_label" />
