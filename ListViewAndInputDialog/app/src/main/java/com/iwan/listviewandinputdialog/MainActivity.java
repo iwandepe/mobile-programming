@@ -18,30 +18,39 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity {
     ItemAdapter itemAdapter;
 
+    ArrayList<Item> itemList;
+
+    private ItemDbHelper openDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        openDB = new ItemDbHelper(this);
+
+        itemList = new ArrayList<>();
+        itemList = openDB.getAllItems();
 
         ImageView btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(listener);
 
         ListView lvData = findViewById(R.id.lvData);
 
-
-        ArrayList<Item> itemList = new ArrayList<>();
-
         itemAdapter = new ItemAdapter(this, R.layout.listview_item, itemList);
 
         lvData.setAdapter(itemAdapter);
 
-        Item item1 = new Item("iwan", "092896");
-        Item item2 = new Item("dwi", "092832");
-        Item item3 = new Item("prakoso", "092567");
-
-        itemAdapter.add(item1);
-        itemAdapter.add(item2);
-        itemAdapter.add(item3);
+//        for (int i = 0; i < itemList.size(); i++) {
+//            itemAdapter.add(itemList[i]);
+//        }
+//        Item item1 = new Item("iwan", "092896");
+//        Item item2 = new Item("dwi", "092832");
+//        Item item3 = new Item("prakoso", "092567");
+//
+//        itemAdapter.add(item1);
+//        itemAdapter.add(item2);
+//        itemAdapter.add(item3);
     }
 
     View.OnClickListener listener = new View.OnClickListener() {
@@ -68,8 +77,13 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // do something
-                        Item item = new Item(etName.getText().toString(), etPhone.getText().toString());
+                        String name = etName.getText().toString();
+                        String phone = etPhone.getText().toString();
+
+                        Item item = new Item(name, phone);
+
+                        long id = openDB.addItem(item);
+                        item.setId(id);
                         itemAdapter.add(item);
                         dialog.dismiss();
                     }
