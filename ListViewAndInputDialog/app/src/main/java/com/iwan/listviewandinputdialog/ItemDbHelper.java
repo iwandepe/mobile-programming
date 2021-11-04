@@ -6,11 +6,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ItemDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
@@ -73,8 +70,19 @@ public class ItemDbHelper extends SQLiteOpenHelper {
         return items;
     }
 
-    public void deleteItem(long id) {
+    public long updateItem(Item item, String name, String phone){
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(TABLE_NAME, COLUMN_NAME_ID + "=" + id, null);
+        ContentValues data = new ContentValues();
+
+        data.put(COLUMN_NAME_PHONE, phone);
+        data.put(COLUMN_NAME_NAME, name);
+        db.update(TABLE_NAME, data, "name='" + item.getName() + "'", null);
+
+        return item.getId();
+    }
+
+    public void deleteItem(long id, String name) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(TABLE_NAME, "name='" + name + "'", null);
     }
 }

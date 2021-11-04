@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/btnDelete"
-        android:src="?android:attr/actionModeFindDrawable" />
+        android:src="@android:drawable/ic_menu_call" />
 
     <fragment
         android:id="@+id/fragmentItemList"

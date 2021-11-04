@@ -38,6 +38,10 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         vhItem.phone.setText(item.getPhone());
 
         return ConvertView;
+    }
 
+    @Override
+    public void clear() {
+        super.clear();
     }
 }

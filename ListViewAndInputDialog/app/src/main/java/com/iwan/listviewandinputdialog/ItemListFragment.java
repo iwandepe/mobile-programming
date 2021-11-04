@@ -25,6 +25,8 @@ public class ItemListFragment extends Fragment {
 
     private ItemDbHelper openDB;
 
+    ListView lvData;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +47,7 @@ public class ItemListFragment extends Fragment {
         itemList = new ArrayList<>();
         itemList = openDB.getAllItems();
 
-        ListView lvData = getView().findViewById(R.id.lvData);
+        lvData = getView().findViewById(R.id.lvData);
 
         itemAdapter = new ItemAdapter(getContext(), R.layout.listview_item, itemList);
 
@@ -56,5 +58,9 @@ public class ItemListFragment extends Fragment {
         itemAdapter.add(item);
     }
 
+    public void removeList(Item item) { itemAdapter.remove(item);}
 
+    public void setLvData(ListView lvData) {
+        this.lvData = lvData;
+    }
 }
