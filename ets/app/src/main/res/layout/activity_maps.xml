@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btnStartUpdate"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:backgroundTint="@color/purple_500"
+        android:text="Start Update" />
+
+    <Button
+        android:id="@+id/btnStopUpdate"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="6dp"
+        android:text="Stop Update" />
+
+    <TextView
+        android:id="@+id/tvLatLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnStartUpdate"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:text="Latitude: " />
+
+    <TextView
+        android:id="@+id/tvLat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnStartUpdate"
+        android:layout_toEndOf="@id/tvLatLabel" />
+
+    <TextView
+        android:id="@+id/tvLongLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvLatLabel"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:text="Longitude: " />
+
+    <TextView
+        android:id="@+id/tvLong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvLatLabel"
+        android:layout_toEndOf="@id/tvLongLabel" />
+
+    <TextView
+        android:id="@+id/tvUpdateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvLongLabel"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:text="Last Update: " />
+
+    <TextView
+        android:id="@+id/tvUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvLongLabel"
+        android:layout_toEndOf="@id/tvUpdateLabel" />
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_below="@id/tvUpdateLabel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>
+
