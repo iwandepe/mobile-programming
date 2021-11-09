@@ -68,18 +68,22 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
                 contactList.add(contact)
             } while (cursor.moveToNext())
         }
+        db.close()
         return contactList
     }
     //method to update data
-    fun updateContact(contact: ContactModel):Int{
+    fun updateContact(oldName: String, contact: ContactModel):Int{
         val db = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(KEY_NAME, contact.name) // EmpModelClass Name
         contentValues.put(KEY_PHONE,contact.phone ) // EmpModelClass Email
 
         // Updating Row
-        val success = db.update(TABLE_CONTACTS, contentValues,"name=" + contact.name,null)
-        //2nd argument is String containing nullColumnHack
+        val success = db.update(TABLE_CONTACTS, contentValues,"name='" + oldName + "'",null)
+//        val query = "UPDATE " + TABLE_CONTACTS + " SET name='" + contact.name + "', phone='" + contact.phone + "' WHERE name='"+ contact.name+"'"
+//        db.execSQL("UPDATE Contacts SET name='cobaganti', phone='081881' WHERE name='erik'")
+//        val success = 1
+                //2nd argument is String containing nullColumnHack
         db.close() // Closing database connection
         return success
     }
@@ -89,7 +93,7 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
         val contentValues = ContentValues()
         contentValues.put(KEY_NAME, contact.name) // EmpModelClass UserId
         // Deleting Row
-        val success = db.delete(TABLE_CONTACTS,"name=" + contact.name,null)
+        val success = db.delete(TABLE_CONTACTS,"name='" + contact.name + "'",null)
         //2nd argument is String containing nullColumnHack
         db.close() // Closing database connection
         return success

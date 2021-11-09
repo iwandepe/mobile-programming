@@ -55,6 +55,7 @@ class ContactListFragment : Fragment(), View.OnClickListener {
 
         contactAdapter.onItemClick = { contact ->
             activeContact = contact
+            Toast.makeText(requireContext(), "Contact ${contact.name} selected", Toast.LENGTH_SHORT).show()
         }
 
         return binding.root
@@ -66,10 +67,10 @@ class ContactListFragment : Fragment(), View.OnClickListener {
                 showAddDialog()
             }
             R.id.btnEdit -> {
-
+                showEditDialog()
             }
             R.id.btnDelete -> {
-
+                showDeleteDialog()
             }
             R.id.btnToContact -> {
 
@@ -112,73 +113,68 @@ class ContactListFragment : Fragment(), View.OnClickListener {
         dialog.show()
     }
 
-//    fun udpateContact(){
-//        val dialogBuilder = AlertDialog.Builder(this)
-//        val inflater = this.layoutInflater
-//        val dialogView = inflater.inflate(R.layout.update_dialog, null)
-//        dialogBuilder.setView(dialogView)
-//
-//        val edtId = dialogView.findViewById(R.id.updateId) as EditText
-//        val edtName = dialogView.findViewById(R.id.updateName) as EditText
-//        val edtEmail = dialogView.findViewById(R.id.updateEmail) as EditText
-//
-//        dialogBuilder.setTitle("Update Record")
-//        dialogBuilder.setMessage("Enter data below")
-//        dialogBuilder.setPositiveButton("Update", DialogInterface.OnClickListener { _, _ ->
-//
-//            val updateId = edtId.text.toString()
-//            val updateName = edtName.text.toString()
-//            val updateEmail = edtEmail.text.toString()
-//            //creating the instance of DatabaseHandler class
-//            val databaseHandler: DatabaseHandler= DatabaseHandler(this)
-//            if(updateId.trim()!="" && updateName.trim()!="" && updateEmail.trim()!=""){
-//                //calling the updateEmployee method of DatabaseHandler class to update record
-//                val status = databaseHandler.updateEmployee(EmpModelClass(Integer.parseInt(updateId),updateName, updateEmail))
-//                if(status > -1){
-//                    Toast.makeText(applicationContext,"record update",Toast.LENGTH_LONG).show()
-//                }
-//            }else{
-//                Toast.makeText(applicationContext,"id or name or email cannot be blank",Toast.LENGTH_LONG).show()
-//            }
-//
-//        })
-//        dialogBuilder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
-//            //pass
-//        })
-//        val b = dialogBuilder.create()
-//        b.show()
-//    }
-//    //method for deleting records based on id
-//    fun deleteRecord(view: View){
-//        //creating AlertDialog for taking user id
-//        val dialogBuilder = AlertDialog.Builder(this)
-//        val inflater = this.layoutInflater
-//        val dialogView = inflater.inflate(R.layout.delete_dialog, null)
-//        dialogBuilder.setView(dialogView)
-//
-//        val dltId = dialogView.findViewById(R.id.deleteId) as EditText
-//        dialogBuilder.setTitle("Delete Record")
-//        dialogBuilder.setMessage("Enter id below")
-//        dialogBuilder.setPositiveButton("Delete", DialogInterface.OnClickListener { _, _ ->
-//
-//            val deleteId = dltId.text.toString()
-//            //creating the instance of DatabaseHandler class
-//            val databaseHandler: DatabaseHandler= DatabaseHandler(this)
-//            if(deleteId.trim()!=""){
-//                //calling the deleteEmployee method of DatabaseHandler class to delete record
-//                val status = databaseHandler.deleteEmployee(EmpModelClass(Integer.parseInt(deleteId),"",""))
-//                if(status > -1){
-//                    Toast.makeText(applicationContext,"record deleted",Toast.LENGTH_LONG).show()
-//                }
-//            }else{
-//                Toast.makeText(applicationContext,"id or name or email cannot be blank",Toast.LENGTH_LONG).show()
-//            }
-//
-//        })
-//        dialogBuilder.setNegativeButton("Cancel", DialogInterface.OnClickListener { _, _ ->
-//            //pass
-//        })
-//        val b = dialogBuilder.create()
-//        b.show()
-//    }
+    private fun showEditDialog() {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.input_dialog)
+
+        val etName = dialog.findViewById(R.id.etName) as EditText
+        val etPhone = dialog.findViewById(R.id.etPhone) as EditText
+
+        etName.setText(activeContact?.name)
+        etPhone.setText(activeContact?.phone)
+
+        val databaseHandler = DatabaseHandler(requireContext())
+
+        val btnPositive = dialog.findViewById(R.id.btnPositive) as Button
+        val btnNegative = dialog.findViewById(R.id.btnNegative) as Button
+        btnPositive.setOnClickListener {
+            if(etName.text.toString().trim()!="" && etPhone.text.toString().trim()!=""){
+                println(etName.text.toString())
+                println(etPhone.text.toString())
+                val status = databaseHandler.updateContact(activeContact!!.name, ContactModel(etName.text.toString(), etPhone.text.toString()))
+                if(status > -1){
+                    Toast.makeText(requireContext(), "Contact updated", Toast.LENGTH_SHORT).show()
+                    contactList = databaseHandler.viewContacts()
+                    println(contactList.size)
+                    contactAdapter.setData(contactList)
+                    contactAdapter.notifyDataSetChanged()
+                }
+            }
+            else{
+                Toast.makeText(requireContext(), "Name and phone cannot be empty", Toast.LENGTH_LONG).show()
+            }
+
+            dialog.dismiss()
+        }
+        btnNegative.setOnClickListener { dialog.dismiss() }
+        dialog.show()
+    }
+
+    private fun showDeleteDialog() {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.certainty_dialog)
+
+        val databaseHandler = DatabaseHandler(requireContext())
+
+        val btnPositive = dialog.findViewById(R.id.btnPositive) as Button
+        val btnNegative = dialog.findViewById(R.id.btnNegative) as Button
+        btnPositive.setOnClickListener {
+            val status = databaseHandler.deleteContact(activeContact!!)
+            if(status > -1){
+                Toast.makeText(requireContext(), "Contact deleted", Toast.LENGTH_SHORT).show()
+                contactList = databaseHandler.viewContacts()
+                println(contactList.size)
+                contactAdapter.setData(contactList)
+                contactAdapter.notifyDataSetChanged()
+            }
+
+            dialog.dismiss()
+        }
+        btnNegative.setOnClickListener { dialog.dismiss() }
+        dialog.show()
+    }
 }
