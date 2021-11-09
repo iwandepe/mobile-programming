@@ -1,11 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ItemListFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ContactListFragment">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_add" />
 
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/btnAdd"
+            android:src="@android:drawable/ic_menu_edit" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/btnEdit"
+            android:src="@android:drawable/ic_menu_delete" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnFind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/btnDelete"
+            android:src="@android:drawable/ic_menu_call" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvContact"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/btnAdd"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+    </RelativeLayout>
 </layout>
