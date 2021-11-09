@@ -1,6 +1,8 @@
 package com.iwan.ets
 
 import android.app.Dialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -72,8 +74,10 @@ class ContactListFragment : Fragment(), View.OnClickListener {
             R.id.btnDelete -> {
                 showDeleteDialog()
             }
-            R.id.btnToContact -> {
-
+            R.id.btnFind -> {
+                val number = Uri.parse("tel:" + activeContact!!.phone)
+                val intent = Intent(Intent.ACTION_DIAL, number)
+                requireActivity().startActivity(intent)
             }
         }
     }
