@@ -98,4 +98,30 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
         db.close() // Closing database connection
         return success
     }
+
+    @SuppressLint("Range")
+    fun searchContacts(name: String): ArrayList<ContactModel> {
+        val contactList:ArrayList<ContactModel> = ArrayList<ContactModel>()
+        val selectQuery = "SELECT  * FROM $TABLE_CONTACTS WHERE name LIKE '%$name%'"
+        val db = this.readableDatabase
+        var cursor: Cursor? = null
+        try{
+            cursor = db.rawQuery(selectQuery, null)
+        }catch (e: SQLiteException) {
+            db.execSQL(selectQuery)
+            return arrayListOf()
+        }
+        var name: String
+        var phone: String
+        if (cursor.moveToFirst()) {
+            do {
+                name = cursor.getString(cursor.getColumnIndex("name"))
+                phone = cursor.getString(cursor.getColumnIndex("phone"))
+                val contact = ContactModel(name = name, phone = phone)
+                contactList.add(contact)
+            } while (cursor.moveToNext())
+        }
+        db.close()
+        return contactList
+    }
 }

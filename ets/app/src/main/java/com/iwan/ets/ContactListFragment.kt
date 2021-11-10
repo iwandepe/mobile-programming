@@ -60,6 +60,15 @@ class ContactListFragment : Fragment(), View.OnClickListener {
             Toast.makeText(requireContext(), "Contact ${contact.name} selected", Toast.LENGTH_SHORT).show()
         }
 
+        val etSearch = binding.etSearch
+        val btnSearch = binding.btnSearch
+
+        btnSearch.setOnClickListener{
+            contactList = databaseHandler.searchContacts(etSearch.text.toString())
+            contactAdapter.setData(contactList)
+            contactAdapter.notifyDataSetChanged()
+        }
+
         return binding.root
     }
 

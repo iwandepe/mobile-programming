@@ -6,7 +6,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="8dp">
+        
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btnAdd"
             android:layout_width="wrap_content"
@@ -37,11 +39,27 @@
             android:layout_toEndOf="@+id/btnDelete"
             android:src="@android:drawable/ic_menu_call" />
 
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/btnSearch"
+            android:layout_alignBaseline="@id/btnSearch"
+            />
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnFind"
+            android:layout_alignParentRight="true"
+            android:text="Search"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvContact"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/btnAdd"
+            android:layout_below="@id/etSearch"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
     </RelativeLayout>
 </layout>
