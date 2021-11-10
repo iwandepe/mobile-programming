@@ -9,57 +9,67 @@
         android:layout_height="match_parent"
         android:padding="8dp">
         
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btnAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_add" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btnEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/btnAdd"
-            android:src="@android:drawable/ic_menu_edit" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btnDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/btnEdit"
-            android:src="@android:drawable/ic_menu_delete" />
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btnFind"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/btnDelete"
-            android:src="@android:drawable/ic_menu_call" />
-
-        <EditText
-            android:id="@+id/etSearch"
+        <LinearLayout
+            android:id="@+id/llOperations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/btnSearch"
-            android:layout_alignBaseline="@id/btnSearch"
-            />
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true"
+            android:gravity="center">
 
-        <Button
-            android:id="@+id/btnSearch"
-            android:layout_width="wrap_content"
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btnAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_add" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btnEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_edit" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btnDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_delete" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btnFind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_call" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llSearch"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btnFind"
-            android:layout_alignParentRight="true"
-            android:text="Search"/>
+            android:orientation="horizontal"
+            android:layout_below="@id/llOperations"
+            android:weightSum="5">
+
+            <EditText
+                android:id="@+id/etSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"/>
+
+            <Button
+                android:id="@+id/btnSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Search"/>
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvContact"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/etSearch"
+            android:layout_below="@id/llSearch"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
     </RelativeLayout>
 </layout>

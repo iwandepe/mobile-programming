@@ -6,34 +6,45 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="32dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Project ETS"
+            android:textAlignment="center"
+            android:textSize="18pt"
+            android:textStyle="bold"
+            android:layout_marginBottom="18dp"/>
 
         <Button
             android:id="@+id/btnToContact"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Contact" />
 
         <Button
             android:id="@+id/btnToMaps"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Maps" />
 
         <Button
             android:id="@+id/btnToGoogle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Google"/>
 
         <Button
             android:id="@+id/btnToYoutube"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Youtube"/>
+            android:text="Youtube"
+            android:layout_marginBottom="42dp"/>
 
     </LinearLayout>
 </RelativeLayout>
