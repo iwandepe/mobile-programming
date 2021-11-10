@@ -23,5 +23,17 @@
             android:layout_height="wrap_content"
             android:text="Maps" />
 
+        <Button
+            android:id="@+id/btnToGoogle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Google"/>
+
+        <Button
+            android:id="@+id/btnToYoutube"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Youtube"/>
+
     </LinearLayout>
 </RelativeLayout>
