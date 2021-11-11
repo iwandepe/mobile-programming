@@ -1,31 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:padding="16dp"
     android:layout_marginBottom="8dp"
     android:background="@android:color/white"
     android:layout_height="wrap_content">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="1">
         <TextView
-            android:id="@+id/tvWeatherLabel"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvDay"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:layout_marginRight="8dp"
-            android:text="Cuaca" />
+            android:text="Day"
+            android:layout_weight="0.3"/>
+        <TextView
+            android:id="@+id/tvHumidity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Humidity"
+            android:textAlignment="textEnd"
+            android:layout_weight="0.2"
+            android:layout_marginRight="10dp"/>
         <TextView
             android:id="@+id/tvWeather"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Kondisi cuaca" />
+            android:text="Weather"
+            android:textAlignment="textStart"
+            android:layout_weight="0.25"/>
+        <TextView
+            android:id="@+id/tvTemperature"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Temp"
+            android:textAlignment="textEnd"
+            android:layout_weight="0.25"/>
     </LinearLayout>
-    <TextView
-        android:id="@+id/tvDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Description" />
 </LinearLayout>
