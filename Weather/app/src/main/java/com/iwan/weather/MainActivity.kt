@@ -2,6 +2,8 @@ package com.iwan.weather
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
@@ -33,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         val networkServices = DataServices.create()
         val call = networkServices.getWeather()
 
+        val progressCircle = findViewById(R.id.spinner) as ProgressBar
+
         call.enqueue(object : Callback<WeatherResponse> {
             override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
                 println("On Failure")
@@ -42,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<WeatherResponse>, response: Response<WeatherResponse>) {
                 println("On Response")
                 if (response.body() != null) {
+                    progressCircle.visibility = View.GONE
                     var data: WeatherResponse = response.body()!!
                     dataSet.addAll(data!!.daily!!.filterNotNull())
                     println(dataSet)
