@@ -12,7 +12,7 @@ interface NetworkServices {
     @GET("data/2.5/weather?q=kediri&appid=c9253bbc87859a49fb28ec2b6d0d2e91")
     fun getCurrentWeather(): Call<CurrentWeatherResponse>
 
-    @GET("data/2.5/onecall?lat=33.44&lon=-94.04&appid=c9253bbc87859a49fb28ec2b6d0d2e91")
+    @GET("data/2.5/onecall?lat=-7.98&lon=-112.08&appid=c9253bbc87859a49fb28ec2b6d0d2e91")
     fun getWeather(): Call<WeatherResponse>
 }
 

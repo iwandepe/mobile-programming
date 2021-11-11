@@ -45,7 +45,7 @@ class RecyclerViewAdapter (
         viewHolder.weather.text = dataSet[position].weather!![0]!!.main
         viewHolder.day.text = this.getDateTime(dataSet[position].dt!!.toLong())
         viewHolder.humidity.text = dataSet[position].humidity.toString() + "%"
-        viewHolder.temperature.text = dataSet[position].temp!!.day.toString()
+        viewHolder.temperature.text = dataSet[position].temp!!.day.toString() + "\u00B0 K"
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

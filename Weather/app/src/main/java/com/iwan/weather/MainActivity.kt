@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     var dataSet: MutableList<DailyItem> = mutableListOf()
@@ -21,7 +22,9 @@ class MainActivity : AppCompatActivity() {
         val tvTodayDate = findViewById(R.id.tvTodayDate) as TextView
 
         tvLocation.setText("Kediri")
-        tvTodayDate.setText("Hari ini")
+
+        val todayDate = Calendar.getInstance().time.toString()
+        tvTodayDate.setText(todayDate.substring(0, todayDate.length - 15))
 
         recyclerViewAdapter = RecyclerViewAdapter(dataSet, R.layout.item_weather)
         recyclerView = findViewById(R.id.rvWeather)
